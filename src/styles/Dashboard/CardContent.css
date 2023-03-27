@@ -95,3 +95,17 @@
 .chartContainer {
     width: 70%;
 }
+
+@media screen and (max-width: 920px ){
+    .CircularProgressbar{
+        width: 7rem;
+    }
+     .CompactCard .detail>span:nth-child(2){
+        font-size: 1.5rem;
+     }
+
+     .radialBar>span,
+    .CompactCard .detail>span:nth-child(3) {
+        font-size: 1rem;
+    }
+}

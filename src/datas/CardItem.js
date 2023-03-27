@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import Pagination from '../components/Pagination'
 import card from '../assets/card.jpg'
 import kid from '../assets/kid.jpg'
@@ -6,6 +6,7 @@ import img1 from '../assets/1.jpg'
 import img2 from '../assets/2.jpg'
 import img3 from '../assets/4.jpg'
 import Card from '../components/Card'
+import axios from 'axios'
 import '../styles/Card.css'
 
 export const cardList = [
@@ -164,22 +165,36 @@ export const cardList = [
     
 ]
 
-
 const CardItem = () => {
-
+    
   const cards = cardList
+  const [cardsAxios, setCardsAxios] = useState([])
+  const [loading, setLoading] = useState(false)
   const [currentPage, setCurrentPage] = useState(1);
   const [cardsPerPage] = useState(6);
+
+  useEffect(() => {
+      const fetchCard = async () => {
+          console.log('useEffect')
+          setLoading(true);
+          const res = await fetch('http://localhost:3001/api/user')
+          console.log(await res.json())
+          setLoading(false);
+      }
+      fetchCard();
+  }, []);
+
+  
 
   //Get currents cards
   const indexofLastCard = currentPage * cardsPerPage;
   const indexofFirstCard = indexofLastCard - cardsPerPage;
-  const currentCards = cards.slice(indexofFirstCard, indexofLastCard)
+  const currentCards = cards.slice(indexofFirstCard, indexofLastCard);
 
 
   //change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
-
+ 
   return (
     <div className='content'>
         <div className='head'>
@@ -222,6 +237,7 @@ const CardItem = () => {
             {currentCards.map((profile, index) => (
                 <Card data={profile} id={index} />
             ))}
+            {/* <Card cardsAxios={currentCards} loading={loading} /> */}
         </div>
         <Pagination cardsPerPage={cardsPerPage} totalCards={cards.length} paginate={paginate}  />
     </div>

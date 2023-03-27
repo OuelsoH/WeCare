@@ -6,8 +6,13 @@ import {VscLocation} from 'react-icons/vsc'
 
 
 const Card = ({data}) => {
+  // if(l) {
+  //   return <h2>Loading...</h2>
+  // }
   return (
-    <div className='card-wrap'>
+    // {cardsAxios.map(data => (
+    //    ))}
+      <div className='card-wrap'>
       <img className='card-image' src ={data.cover} alt= 'Orphelinat '/>
       <button className='btn_option' ><span className='location icon'><TiLocation /></span>{data.place}</button>
       <span className='name'>{data.name}</span>
@@ -25,6 +30,7 @@ const Card = ({data}) => {
           </div> 
       </div> 
     </div>
+   
   )
 }
 
