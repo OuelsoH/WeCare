@@ -6,7 +6,6 @@ import img1 from '../assets/1.jpg'
 import img2 from '../assets/2.jpg'
 import img3 from '../assets/4.jpg'
 import Card from '../components/Card'
-import axios from 'axios'
 import '../styles/Card.css'
 
 export const cardList = [
@@ -167,17 +166,18 @@ export const cardList = [
 
 const CardItem = () => {
     
-  const cards = cardList
+//   const cards = cardList
   const [cardsAxios, setCardsAxios] = useState([])
   const [loading, setLoading] = useState(false)
   const [currentPage, setCurrentPage] = useState(1);
-  const [cardsPerPage] = useState(6);
+  const [cardsPerPage] = useState(1);
 
   useEffect(() => {
       const fetchCard = async () => {
           console.log('useEffect')
           setLoading(true);
           const res = await fetch('http://localhost:3001/api/user')
+          setCardsAxios(await res.json())
           console.log(await res.json())
           setLoading(false);
       }
@@ -189,7 +189,7 @@ const CardItem = () => {
   //Get currents cards
   const indexofLastCard = currentPage * cardsPerPage;
   const indexofFirstCard = indexofLastCard - cardsPerPage;
-  const currentCards = cards.slice(indexofFirstCard, indexofLastCard);
+  const currentCards = cardsAxios.slice(indexofFirstCard, indexofLastCard);
 
 
   //change page
@@ -239,7 +239,7 @@ const CardItem = () => {
             ))}
             {/* <Card cardsAxios={currentCards} loading={loading} /> */}
         </div>
-        <Pagination cardsPerPage={cardsPerPage} totalCards={cards.length} paginate={paginate}  />
+        <Pagination cardsPerPage={cardsPerPage} totalCards={cardsAxios.length} paginate={paginate}  />
     </div>
   )
 }
