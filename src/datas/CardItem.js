@@ -8,7 +8,7 @@ import img3 from '../assets/4.jpg'
 import Card from '../components/Card'
 import '../styles/Card.css'
 
-export const cardList = [
+export const cardList = [ 
     {
         cover: img2,
         name: 'Orphelinat Saint-Etienne',
@@ -170,21 +170,29 @@ const CardItem = () => {
   const [cardsAxios, setCardsAxios] = useState([])
   const [loading, setLoading] = useState(false)
   const [currentPage, setCurrentPage] = useState(1);
-  const [cardsPerPage] = useState(1);
+  const [cardsPerPage] = useState(6);
 
   useEffect(() => {
       const fetchCard = async () => {
-          console.log('useEffect')
-          setLoading(true);
+        console.log('useEffect')
+        try{
+        setLoading(true);
           const res = await fetch('http://localhost:3001/api/user')
-          setCardsAxios(await res.json())
-          console.log(await res.json())
-          setLoading(false);
+          const response =await res.json()
+          setCardsAxios(response.users)
+    
+        }catch(err){
+            console.log(err)
+        }finally{
+             setLoading(false);
+        }
+         
       }
       fetchCard();
   }, []);
 
   
+      console.log(cardsAxios)
 
   //Get currents cards
   const indexofLastCard = currentPage * cardsPerPage;
@@ -235,7 +243,7 @@ const CardItem = () => {
         </div>
         <div className='card'>
             {currentCards.map((profile, index) => (
-                <Card data={profile} id={index} />
+                <Card data={profile} id={index} loading={loading} />
             ))}
             {/* <Card cardsAxios={currentCards} loading={loading} /> */}
         </div>

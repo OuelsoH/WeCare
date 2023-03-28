@@ -5,13 +5,11 @@ import {MdCall} from 'react-icons/md'
 import {VscLocation} from 'react-icons/vsc'
 
 
-const Card = ({data}) => {
-  // if(l) {
-  //   return <h2>Loading...</h2>
-  // }
+const Card = ({data, loading}) => {
+  if(loading) {
+    return <h2>Loading...</h2>
+  }
   return (
-    // {cardsAxios.map(data => (
-    //    ))}
       <div className='card-wrap'>
       <img className='card-image' src ={data.coverImage} alt= 'Orphelinat '/>
       <button className='btn_option' ><span className='location icon'><TiLocation /></span>{data.address}</button>
