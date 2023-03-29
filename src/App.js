@@ -10,6 +10,7 @@ import Profile from "./pages/Profile";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Footer from "./components/Footer"
 import Dashboard from "./pages/Dashboard";
+import CheckoutSucess from "./components/Stripe/CheckoutSucess";
 
 
 function App() {
@@ -25,12 +26,11 @@ function App() {
             <Route path="/About" element={<AboutUs />} />
             <Route path="/Myprofile" element={<Profile />} />
             <Route path="/Dashboard" element={<Dashboard />} />
+            <Route path="/Success" element={<CheckoutSucess />} />
           </Route>
-          
         </Routes>
         <Footer />
       </Router>
-      {/* <Carousel images={images} /> */}
     </div>
   );
 }
